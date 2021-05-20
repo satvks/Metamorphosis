@@ -4,10 +4,9 @@ class Level1 extends Phaser.Scene {
     }
 /* Game May Contain Multiple Levels. Name Subject to Change */
     preload() {
-        this.load.path = './assets/';
-        this.load.image('room', 'Background.png'); // big wan
+        this.load.image('room', 'assets/world/bans_bg1.png'); // big wan
         //Inchworm ART
-        this.load.spritesheet('move', 'InchMovementFinal.png', {frameWidth: 80, frameHeight: 80}); //invalid frame width.
+        this.load.spritesheet('move', 'assets/world/InchMovementFinal.png', {frameWidth: 125, frameHeight: 125}); //invalid frame width.
         //SOUND
     }
 
