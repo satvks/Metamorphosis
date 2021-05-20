@@ -15,7 +15,10 @@ let config = {
     //         }
     //     }
     // },
-    scene: [ Menu ]
+    scene: [ Menu, Instructions, Play ]
 }
 
 let game = new Phaser.Game(config);
+
+// keyboard variables
+let keyRIGHT, keyLEFT;
