@@ -5,16 +5,16 @@ let config = {
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    // physics: {
-    //     default: 'arcade',
-    //     arcade: {
-    //         debug: true,
-    //         gravity: {
-    //             x: 0,
-    //             y: 0
-    //         }
-    //     }
-    // },
+         physics: {
+             default: 'arcade',
+             arcade: {
+                 debug: true,
+                 gravity: {
+                     x: 0,
+                     y: 0
+                 }
+             }
+         },
     scene: [ Menu, Instructions, Level1 ]
 }
 
