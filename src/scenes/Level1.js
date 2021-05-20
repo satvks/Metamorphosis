@@ -4,7 +4,11 @@ class Level1 extends Phaser.Scene {
     }
 /* Game May Contain Multiple Levels. Name Subject to Change */
     preload() {
-        /* need assets loaded here! */
+        this.load.path = './assets/';
+        this.load.image('room', 'Background.png'); // big wan
+        //Inchworm ART
+        this.load.spritesheet('move', 'InchMovementSheet.png', {frameWidth: 80, frameHeight: 80}); //invalid frame width.
+        //SOUND
     }
 
     create() {
@@ -22,11 +26,6 @@ class Level1 extends Phaser.Scene {
             repeat: -1
         });
 
-        this.anims.create({
-            key: 'turn',
-            frames: [ { key: 'move', frame: 4 } ],
-            frameRate: 20
-        });
 
         this.anims.create({
             key: 'right',
