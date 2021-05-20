@@ -1,20 +1,20 @@
 let config = {
     type: Phaser.CANVAS,
-    height: 640,
-    width: 960,
+    height: 720,
+    width: 1180,
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true,
-            gravity: {
-                x: 0,
-                y: 0
-            }
-        }
-    },
+    // physics: {
+    //     default: 'arcade',
+    //     arcade: {
+    //         debug: true,
+    //         gravity: {
+    //             x: 0,
+    //             y: 0
+    //         }
+    //     }
+    // },
     scene: [ Menu ]
 }
 
