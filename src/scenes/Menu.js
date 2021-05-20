@@ -2,14 +2,26 @@ class Menu extends Phaser.Scene {
     constructor() {
         super("menuScene");
     }
+    preload() {
+        // load images
+        this.load.image('title', 'assets/title.png')
+    }
+    
+    create() {
+        this.titleScreen = this.add.tileSprite(0, 0, 900, 500, 'title').setOrigin(0, 0);
 
-    preload() { 
-        /* ur assets */
-        this.load.image('metamorph', 'assets/metamorphosisTitle.png');
+        // define keys
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
     }
 
-    create() {
-        /* create menu objects */
-        let background = this.add.sprite(0, 0, 'metamorph').setOrigin(0, 0);
+    update() {
+        if(Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            this.scene.start('instructionScene');
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            this.scene.start('playScene');
+        }
+
     }
 }
