@@ -7,7 +7,7 @@ class Level1 extends Phaser.Scene {
         this.load.path = './assets/';
         this.load.image('room', 'Background.png'); // big wan
         //Inchworm ART
-        this.load.spritesheet('move', 'InchMovementSheet.png', {frameWidth: 80, frameHeight: 80}); //invalid frame width.
+        this.load.spritesheet('move', 'InchMovementFinal.png', {frameWidth: 80, frameHeight: 80}); //invalid frame width.
         //SOUND
     }
 
@@ -21,7 +21,7 @@ class Level1 extends Phaser.Scene {
 
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers('move', { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers('move', { start: 9, end: 18 }),
             frameRate: 10,
             repeat: -1
         });
@@ -29,7 +29,7 @@ class Level1 extends Phaser.Scene {
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('move', { start: 5, end: 9 }),
+            frames: this.anims.generateFrameNumbers('move', { start: 0, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
