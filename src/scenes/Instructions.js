@@ -8,7 +8,7 @@ class Instructions extends Phaser.Scene {
     }
 
     create() {
-        this.instructionScreen = this.add.tileSprite(0, 0, 500, 900, 'instructions_2').setOrigin(0, 0);
+        this.instructionScreen = this.add.tileSprite(0, 0, 900, 500, 'instructions_2').setOrigin(0, 0);
 
         // define keys
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
