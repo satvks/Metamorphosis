@@ -20,7 +20,7 @@ class Menu extends Phaser.Scene {
             this.scene.start('instructionScene');
         }
         if(Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-            this.scene.start('firstLevel');
+            this.scene.start('Fi rstLevel');
         }
 
     }
