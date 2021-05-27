@@ -6,25 +6,27 @@ class Level1 extends Phaser.Scene {
     preload() {
         this.load.image('room', 'assets/world/bans_bg1.png'); // big wan
         //Inchworm ART
-        this.load.spritesheet('move', 'assets/world/InchMovementFinal.png', {frameWidth: 125, frameHeight: 125}); //invalid frame width.
+        this.load.spritesheet('move', 'assets/sprites/InchMovementFinal.png', {frameWidth: 125, frameHeight: 125}); //invalid frame width.
         //SOUND
     }
 
     create() {
         this.add.image(0,0,'room').setOrigin(0,0);
 
-        worm = this.physics.add.sprite(100, 200, 'move');
+        this.worm = this.physics.add.sprite(100, 200, 'move');
 
-        worm.setBounce(0.2);
-        worm.setCollideWorldBounds(true);
+        this.worm.setBounce(0.2);
+        this.worm.setCollideWorldBounds(true);
 
-        this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('move', { start: 9, end: 18 }),
-            frameRate: 10,
-            repeat: -1
-        });
-
+         // configure main camera (bg image is 3000x3000)
+         this.cameras.main.setBounds(0, 0, 3540, 1440);
+         this.cameras.main.setZoom(0.75);
+         // have camera follow copter
+         // startFollow(target [, roundPixels] [, lerpX] [, lerpY] [, offsetX] [, offsetY])
+         this.cameras.main.startFollow(this.worm, true, 0.1, 0.1);
+         // set camera dead zone
+         this.cameras.main.setDeadzone(300, 300);
+         this.cameras.main.setName("mainCam");
 
         this.anims.create({
             key: 'right',
@@ -39,21 +41,23 @@ class Level1 extends Phaser.Scene {
 
     update() {
         if (cursors.left.isDown) {
-            worm.setVelocityX(-160);
+            this.worm.setVelocityX(-160);
+            this.worm.flipX = true;
 
-            worm.anims.play('left', true);
+            this.worm.anims.play('right', true);
         }
         else if (cursors.right.isDown)
         {
-            worm.setVelocityX(160);
+            this.worm.setVelocityX(160);
+            this.worm.flipX = false;
 
-            worm.anims.play('right', true);
+            this.worm.anims.play('right', true);
         }
         else
         {
-            worm.setVelocityX(0);
+            this.worm.setVelocityX(0);
 
-            worm.anims.play('turn');
+            this.worm.anims.stop('right');
         }
 
 
