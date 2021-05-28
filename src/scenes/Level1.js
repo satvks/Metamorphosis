@@ -28,22 +28,22 @@ class Level1 extends Phaser.Scene {
         this.worm.setBounce(0.2);
         this.worm.setCollideWorldBounds(true);
 
-        // // configure main camera (bg image is 3000x3000)
-        // this.cameras.main.setBounds(0, 0, 3540, 1440);
-        // this.cameras.main.setZoom(0.75);
-        // // have camera follow copter
-        // // startFollow(target [, roundPixels] [, lerpX] [, lerpY] [, offsetX] [, offsetY])
-        // this.cameras.main.startFollow(this.worm, true, 0.1, 0.1);
-        // // set camera dead zone
-        // this.cameras.main.setDeadzone(300, 300);
-        // this.cameras.main.setName("mainCam");
+        // configure main camera (bg image is 3000x3000)
+        this.cameras.main.setBounds(0, 0, 3540, 1440);
+        this.cameras.main.setZoom(0.75);
+        // have camera follow worm
+        // startFollow(target [, roundPixels] [, lerpX] [, lerpY] [, offsetX] [, offsetY])
+        this.cameras.main.startFollow(this.worm, true, 0.1, 0.1);
+        // set camera dead zone
+        this.cameras.main.setDeadzone(300, 300);
+        this.cameras.main.setName("mainCam");
 
         // left worm movement
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('move', { start: 9, end: 17 }),
             frameRate: 10,
-            repeat: -1
+            repeat: 0
         });
 
         // right worm movement
@@ -51,7 +51,7 @@ class Level1 extends Phaser.Scene {
             key: 'right',
             frames: this.anims.generateFrameNumbers('move', { start: 0, end: 8 }),
             frameRate: 10,
-            repeat: -1
+            repeat: 0
         });
 
         cursors = this.input.keyboard.createCursorKeys();
@@ -70,7 +70,8 @@ class Level1 extends Phaser.Scene {
             if (cursors.left.isDown) {
                 this.worm.setVelocityX(-160);
 
-                this.worm.anims.play('left', true);
+                this.worm.flipX = true;
+                this.worm.anims.play('right', true);
                 this.energy -= .1;
                 this.energyAmount.text = Math.round(this.energy);
             }
@@ -79,6 +80,7 @@ class Level1 extends Phaser.Scene {
             {
                 this.worm.setVelocityX(160);
 
+                this.worm.flipX = false;
                 this.worm.anims.play('right', true);
                 this.energy -= .1;
                 this.energyAmount.text = Math.round(this.energy);
