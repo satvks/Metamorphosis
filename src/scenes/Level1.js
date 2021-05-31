@@ -15,10 +15,17 @@ class Level1 extends Phaser.Scene {
         // background image
         this.background = this.add.image(0, -390,'background').setOrigin(0, 0);
 
-        // display energy bar and amount
-        this.energy = 100;
-        this.energyText = this.add.text(20, 660, 'ENERGY:');
-        this.energyAmount = this.add.text(100, 660, this.energy);
+        this.hud = this.add.group();
+        {
+            // display energy bar and amount
+            this.energy = 100;
+            this.energyText = this.add.text(20, 460, 'ENERGY:');
+            this.energyAmount = this.add.text(100, 460, this.energy);
+            this.energyText.setScrollFactor(0);
+            this.energyAmount.setScrollFactor(0);
+            this.hud.addMultiple([this.energyAmount, this.energyText]);
+
+        }
         // consumables
         this.leaf = this.add.image(250, 540, 'leaf').setOrigin(0, 0);
 
@@ -26,11 +33,12 @@ class Level1 extends Phaser.Scene {
         this.worm = this.physics.add.sprite(100, 615, 'move');
 
         this.worm.setBounce(0.2);
-        this.worm.setCollideWorldBounds(true);
 
         // configure main camera (bg image is 3000x3000)
-        this.cameras.main.setBounds(0, 0, 3540, 1440);
+        this.cameras.main.setBounds(0, 0, 3540, 3540);
         this.cameras.main.setZoom(0.75);
+        
+        this.worm.setCollideWorldBounds(true);
         // have camera follow worm
         // startFollow(target [, roundPixels] [, lerpX] [, lerpY] [, offsetX] [, offsetY])
         this.cameras.main.startFollow(this.worm, true, 0.1, 0.1);
@@ -38,15 +46,8 @@ class Level1 extends Phaser.Scene {
         this.cameras.main.setDeadzone(300, 300);
         this.cameras.main.setName("mainCam");
 
-        // left worm movement
-        this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('move', { start: 9, end: 17 }),
-            frameRate: 10,
-            repeat: 0
-        });
-
         // right worm movement
+        // left worm mvmnt uses flipped right.
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers('move', { start: 0, end: 8 }),
