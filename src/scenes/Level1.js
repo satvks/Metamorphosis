@@ -33,12 +33,17 @@ class Level1 extends Phaser.Scene {
         this.worm = this.physics.add.sprite(100, 615, 'move');
 
         this.worm.setBounce(0.2);
+        //debuggin
+        this.wormPos = this.add.text(20, 660, 'X:');
+        this.wormPosTxt = this.add.text(100, 660, this.worm.x);
+        this.wormPos.setScrollFactor(0);
+        this.wormPosTxt.setScrollFactor(0);
 
         // configure main camera (bg image is 3000x3000)
-        this.cameras.main.setBounds(0, 0, 3540, 3540);
+        this.cameras.main.setBounds(0, 0, 0, 3540);
         this.cameras.main.setZoom(0.75);
         
-        this.worm.setCollideWorldBounds(true);
+        this.worm.setCollideWorldBounds(false);
         // have camera follow worm
         // startFollow(target [, roundPixels] [, lerpX] [, lerpY] [, offsetX] [, offsetY])
         this.cameras.main.startFollow(this.worm, true, 0.1, 0.1);
@@ -66,6 +71,7 @@ class Level1 extends Phaser.Scene {
             console.log('you lose');
             this.scene.start('menuScene');
         }
+        
         if(this.energy > 0){
             // moving left
             if (cursors.left.isDown) {
@@ -75,6 +81,7 @@ class Level1 extends Phaser.Scene {
                 this.worm.anims.play('right', true);
                 this.energy -= .1;
                 this.energyAmount.text = Math.round(this.energy);
+                this.wormPosTxt.text = Math.round(this.worm.x);
             }
             // moving right
             else if (cursors.right.isDown)
@@ -85,6 +92,7 @@ class Level1 extends Phaser.Scene {
                 this.worm.anims.play('right', true);
                 this.energy -= .1;
                 this.energyAmount.text = Math.round(this.energy);
+                this.wormPosTxt.text = Math.round(this.worm.x);
             }
             // sitting still
             else
