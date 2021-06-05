@@ -34,10 +34,10 @@ class Level1 extends Phaser.Scene {
 
         this.worm.setBounce(0.2);
         //debuggin
-        this.wormPos = this.add.text(20, 660, 'X:');
-        this.wormPosTxt = this.add.text(100, 660, this.worm.x);
-        this.wormPos.setScrollFactor(0);
-        this.wormPosTxt.setScrollFactor(0);
+        // this.wormPos = this.add.text(20, 660, 'X:');
+        // this.wormPosTxt = this.add.text(100, 660, this.worm.x);
+        // this.wormPos.setScrollFactor(0);
+        // this.wormPosTxt.setScrollFactor(0);
 
         // configure main camera (bg image is 3000x3000)
         this.cameras.main.setBounds(0, 0, 0, 3540);
