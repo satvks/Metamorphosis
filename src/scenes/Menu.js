@@ -5,6 +5,7 @@ class Menu extends Phaser.Scene {
     preload() {
         // load images
         this.load.image('title', 'assets/menu/title.png')
+        this.load.audio('menuButton', 'assets/sounds/MenuButtonSound.wav');
     }
     
     create() {
@@ -17,6 +18,8 @@ class Menu extends Phaser.Scene {
 
     update() {
         if(Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            this.sound.play('menuButton');
+            console.log("played sound");
             this.scene.transition({
                 target: 'instructionScene',
                 duration: 2000,
@@ -25,6 +28,8 @@ class Menu extends Phaser.Scene {
             });
         }
         if(Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            this.sound.play('menuButton', { volume: 0.5});
+            console.log("played sound");
             this.scene.start('firstLevel');
         }
 

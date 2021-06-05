@@ -51,19 +51,45 @@ class Level1 extends Phaser.Scene {
         this.cameras.main.setDeadzone(300, 300);
         this.cameras.main.setName("mainCam");
 
-        // right worm movement
+        // animations
+        // worm movement (right)
         // left worm mvmnt uses flipped right.
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('move', { start: 0, end: 8 }),
+            frames: this.anims.generateFrameNumbers('move', { start: 0, end: 4 }),
             frameRate: 10,
             repeat: 0
         });
 
+        this.anims.create({
+            key: 'right2',
+            frames: this.anims.generateFrameNumbers('move', { start: 5, end: 8 }),
+            frameRate: 10,
+            repeat: 0
+        });
+
+        // KEYBOARD INPUTS
         cursors = this.input.keyboard.createCursorKeys();
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        //this.shiftPressed = false;
+        this.shiftReleased = true;
+        this.shiftObj = this.input.keyboard.addKey('shift');  // Get key object
+        // this.shiftObj.on('down', function(event) {
+        //     this.shiftReleased = false;
+        //     // console.log("state change Shift unReleased");
+        // });
+        this.shiftObj.on('up', function(event) {
+            this.shiftReleased = true;
+            console.log(this.shiftReleased);
+             console.log("state change Shift Released");
+        });
+
+        //this.input.keyboard.on('JustDown-shift', this.moveWorm());
+        //this.controlsChecker(); // checks state of shift
 
         this.gameOver = false;
+
+
     }
 
     update() {
@@ -73,34 +99,54 @@ class Level1 extends Phaser.Scene {
         }
         
         if(this.energy > 0){
-            // moving left
-            if (cursors.left.isDown) {
-                this.worm.setVelocityX(-160);
+            // if shift has once been released, it may be pressed for movement.
+            console.log(this.shiftReleased);
+            if(cursors.shift.isDown && this.shiftReleased) { // to move again, release must be true.
+                this.worm.immovable = true;
+                //  this.shiftReleased = false;
+                // moving left
+                //console.log("keypress shift")
+                if (Phaser.Input.Keyboard.JustDown(cursors.left)) {
+                    //console.log("keypress left");
+                    this.worm.immovable = false;
 
-                this.worm.flipX = true;
-                this.worm.anims.play('right', true);
-                this.energy -= .1;
-                this.energyAmount.text = Math.round(this.energy);
-                this.wormPosTxt.text = Math.round(this.worm.x);
-            }
-            // moving right
-            else if (cursors.right.isDown)
-            {
-                this.worm.setVelocityX(160);
+                    //this.worm.setVelocityX(-160);
+                    
+                    this.worm.flipX = true;
+                    this.worm.anims.play('right', true);
+                    this.worm.setVelocityX(-160);
+                    this.worm.on('animationcomplete', () => {
+                        this.worm.setVelocityX(0);
+                        this.shiftReleased = false;
+                    });
 
-                this.worm.flipX = false;
-                this.worm.anims.play('right', true);
-                this.energy -= .1;
-                this.energyAmount.text = Math.round(this.energy);
-                this.wormPosTxt.text = Math.round(this.worm.x);
+                    this.energy -= .1;
+                    this.energyAmount.text = Math.round(this.energy);
+                }
+                // moving right
+                else if (Phaser.Input.Keyboard.JustDown(cursors.right)) {
+                    //console.log("keypress right");
+                    this.worm.immovable = false;
+
+                    this.worm.setVelocityX(160);
+                    this.worm.flipX = false;
+                    this.worm.anims.play('right', true);
+                    this.worm.on('animationcomplete', () => {
+                        this.worm.setVelocityX(0);
+                        this.shiftReleased = false;
+                    });
+                    
+                    this.energy -= .1;
+                    this.energyAmount.text = Math.round(this.energy);
+                }
             }
             // sitting still
-            else
+            else if(/*Phaser.Input.Keyboard.JustUp(cursors.shift)*/cursors.shift.isUp)
             {
-                this.worm.setVelocityX(0);
                 this.energy -=.02;
                 this.energyAmount.text = Math.round(this.energy);
                 //this.worm.anims.play('turn');
+                this.shiftReleased = true;
             }
 
             // consume
@@ -116,5 +162,4 @@ class Level1 extends Phaser.Scene {
             this.gameOver = true;
         }
     }
-
 }

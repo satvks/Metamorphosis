@@ -5,6 +5,8 @@ class Instructions extends Phaser.Scene {
     preload() {
         // load images
         this.load.image('instructions', 'assets/menu/instructions.png');
+        // sounds
+        this.load.audio('menuButton', 'assets/sounds/MenuButtonSounds.wav');
     }
 
     create() {
@@ -16,6 +18,8 @@ class Instructions extends Phaser.Scene {
 
     update() {
         if(Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            this.sound.play('menuButton');
+            console.log("played sound");
             this.scene.transition({
                 target: 'menuScene',
                 duration: 2000,
