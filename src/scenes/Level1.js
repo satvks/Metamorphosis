@@ -29,7 +29,7 @@ class Level1 extends Phaser.Scene {
         // consumables
         this.leaf = this.add.image(250, 540, 'leaf').setOrigin(0, 0);
 
-        // place controlable worm
+        // place controllable worm
         this.worm = this.physics.add.sprite(100, 615, 'move');
 
         this.worm.setBounce(0.2);
@@ -40,16 +40,16 @@ class Level1 extends Phaser.Scene {
         // this.wormPosTxt.setScrollFactor(0);
 
         // configure main camera (bg image is 3000x3000)
-        this.cameras.main.setBounds(0, 0, 0, 3540);
-        this.cameras.main.setZoom(0.75);
+        this.cameras.main.setBounds(0, 0, 3540, 3540);
+        this.cameras.main.setZoom(0.85);
         
         this.worm.setCollideWorldBounds(false);
         // have camera follow worm
         // startFollow(target [, roundPixels] [, lerpX] [, lerpY] [, offsetX] [, offsetY])
         this.cameras.main.startFollow(this.worm, true, 0.1, 0.1);
         // set camera dead zone
-        this.cameras.main.setDeadzone(300, 300);
-        this.cameras.main.setName("mainCam");
+        this.cameras.main.setDeadzone(500, 500);
+        //this.cameras.main.setName("mainCam");
 
         // animations
         // worm movement (right)
@@ -71,17 +71,17 @@ class Level1 extends Phaser.Scene {
         // KEYBOARD INPUTS
         cursors = this.input.keyboard.createCursorKeys();
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        //this.shiftPressed = false;
         this.shiftReleased = true;
         this.shiftObj = this.input.keyboard.addKey('shift');  // Get key object
         // this.shiftObj.on('down', function(event) {
         //     this.shiftReleased = false;
         //     // console.log("state change Shift unReleased");
         // });
+
         this.shiftObj.on('up', function(event) {
             this.shiftReleased = true;
-            console.log(this.shiftReleased);
-             console.log("state change Shift Released");
+            // console.log(this.shiftReleased);
+            //  console.log("state change Shift Released");
         });
 
         //this.input.keyboard.on('JustDown-shift', this.moveWorm());
@@ -100,7 +100,7 @@ class Level1 extends Phaser.Scene {
         
         if(this.energy > 0){
             // if shift has once been released, it may be pressed for movement.
-            console.log(this.shiftReleased);
+            //console.log(this.shiftReleased);
             if(cursors.shift.isDown && this.shiftReleased) { // to move again, release must be true.
                 this.worm.immovable = true;
                 //  this.shiftReleased = false;
@@ -139,10 +139,8 @@ class Level1 extends Phaser.Scene {
                     this.energy -= .1;
                     this.energyAmount.text = Math.round(this.energy);
                 }
-            }
-            // sitting still
-            else if(/*Phaser.Input.Keyboard.JustUp(cursors.shift)*/cursors.shift.isUp)
-            {
+            } 
+            else if(cursors.shift.isUp) {       // on release
                 this.energy -=.02;
                 this.energyAmount.text = Math.round(this.energy);
                 //this.worm.anims.play('turn');
