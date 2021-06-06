@@ -31,11 +31,16 @@ class Level1 extends Phaser.Scene {
 
         }
 
-        // leaf prefab
-        this.leaf = this.add.image(250, 540, 'leaf').setOrigin(0, 0);
+        // leaf group
+        this.leaves = this.add.group();
+        // this.leaf = this.add.image(250, 540, 'leaf').setOrigin(0, 0); sample Leaf
+
+        //this.physics.add.overlap(sprite, healthGroup, this.eatLeaf); sample code 4 roses
+        //this.add.image(350, 540, 'leaf').setOrigin(0, 0);
+        this.loadLevel();
 
         // tulip and rose prefab
-        this.tulip1 = this.add.image(-10, 10, 'tulip1');
+        this.tulip1 = this.add.image(250, 410, 'tulip1');
         this.tulip2 = this.add.image(-10, 10, 'tulip2');
         this.rose  = this.add.image(-10, -10, 'rose');
 
@@ -99,7 +104,6 @@ class Level1 extends Phaser.Scene {
 
         this.gameOver = false;
 
-
     }
 
     update() {
@@ -157,14 +161,16 @@ class Level1 extends Phaser.Scene {
                 this.shiftReleased = true;
             }
 
-            // consume
-            if(Phaser.Input.Keyboard.JustDown(keyE) && 
-            this.worm.x < this.leaf.x + this.leaf.width &&
-            this.worm.x + this.worm.width > this.leaf.x) {
-                this.leaf.alpha = 0;
-                this.energy += 10;
-                this.energyAmount.text = Math.round(this.energy);
-            }
+            this.leaves.getChildren().forEach(function(leaf) {
+                // consume
+                if(Phaser.Input.Keyboard.JustDown(keyE) && 
+                this.worm.x < leaf.x + leaf.width &&
+                this.worm.x + this.worm.width > leaf.x) {
+                    leaf.alpha = 0;
+                    this.energy += 10;
+                    this.energyAmount.text = Math.round(this.energy);
+                }
+            }, this); 
         }
         else {
             this.gameOver = true;
@@ -173,8 +179,13 @@ class Level1 extends Phaser.Scene {
 
     // Loads in Tulips and Roses
     loadLevel() {
-        for(let xpos = 0; xpos < 3550; xpos += 120) {
-            
+        // random int between [0,3), decides flower type
+        for(let xpos = 245; xpos < 3550; xpos += 1120) {
+            this.leaves.create(xpos + Phaser.Math.Between(10,200), 540, 'leaf').setOrigin(0,0);
         }
     }
+
+    // consumeLeaf() {
+
+    // }
 }
