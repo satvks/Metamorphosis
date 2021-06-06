@@ -6,6 +6,10 @@ class Level1 extends Phaser.Scene {
     preload() {
         this.load.image('background', 'assets/world/Level2.png'); // big wan
         this.load.image('leaf', 'assets/world/Leaf.png');
+        this.load.image('tulip1', 'assets/world/Tulip1.png');   // dimensions for all is 350x500
+        this.load.image('tulip2', 'assets/world/Tulip2.png');
+        this.load.image('rose', 'assets/world/Rose.png');
+        //Tulips and Rose.
         //Inchworm ART
         this.load.spritesheet('move', 'assets/sprites/InchMovementFinal.png', {frameWidth: 125, frameHeight: 125}); //invalid frame width.
         //SOUND
@@ -26,14 +30,20 @@ class Level1 extends Phaser.Scene {
             this.hud.addMultiple([this.energyAmount, this.energyText]);
 
         }
-        // consumables
+
+        // leaf prefab
         this.leaf = this.add.image(250, 540, 'leaf').setOrigin(0, 0);
+
+        // tulip and rose prefab
+        this.tulip1 = this.add.image(-10, 10, 'tulip1');
+        this.tulip2 = this.add.image(-10, 10, 'tulip2');
+        this.rose  = this.add.image(-10, -10, 'rose');
 
         // place controllable worm
         this.worm = this.physics.add.sprite(100, 615, 'move');
 
         this.worm.setBounce(0.2);
-        //debuggin
+        //debuggin camera
         // this.wormPos = this.add.text(20, 660, 'X:');
         // this.wormPosTxt = this.add.text(100, 660, this.worm.x);
         // this.wormPos.setScrollFactor(0);
@@ -158,6 +168,13 @@ class Level1 extends Phaser.Scene {
         }
         else {
             this.gameOver = true;
+        }
+    }
+
+    // Loads in Tulips and Roses
+    loadLevel() {
+        for(let xpos = 0; xpos < 3550; xpos += 120) {
+            
         }
     }
 }
