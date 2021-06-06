@@ -33,7 +33,7 @@ class Level1 extends Phaser.Scene {
 
         // leaf group
         this.leaves = this.add.group();
-        // this.leaf = this.add.image(250, 540, 'leaf').setOrigin(0, 0); sample Leaf
+        //this.leaf = this.add.image(250, 540, 'leaf').setOrigin(0, 0); //sample Leaf
 
         //this.physics.add.overlap(sprite, healthGroup, this.eatLeaf); sample code 4 roses
         //this.add.image(350, 540, 'leaf').setOrigin(0, 0);
@@ -166,9 +166,10 @@ class Level1 extends Phaser.Scene {
                 if(Phaser.Input.Keyboard.JustDown(keyE) && 
                 this.worm.x < leaf.x + leaf.width &&
                 this.worm.x + this.worm.width > leaf.x) {
-                    leaf.alpha = 0;
+                    leaf.destroy();
                     this.energy += 10;
                     this.energyAmount.text = Math.round(this.energy);
+                    console.log(this.leaves.children);
                 }
             }, this); 
         }
