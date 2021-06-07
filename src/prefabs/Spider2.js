@@ -1,4 +1,4 @@
-class Spider extends Phaser.GameObjects.Sprite {
+class Spider2 extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {  // scene - Menu/Play, (x, y)
         super(scene, x, y, texture, frame);     // texture - prefab, frame - state?
         scene.add.existing(this);

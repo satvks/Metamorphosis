@@ -50,7 +50,7 @@ class Level1 extends Phaser.Scene {
         // this.rose  = this.add.image(-10, -10, 'rose');
 
         // SPIDER
-        this.spider = new Spider(
+        this.spider = new Spider2(
             this,
             10,
             10,
