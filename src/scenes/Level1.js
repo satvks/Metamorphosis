@@ -4,28 +4,28 @@ class Level1 extends Phaser.Scene {
     }
     preload() {
         // load images
-        this.load.image('background', 'assets/level_1_background.png');
-        this.load.image('egg', 'assets/egg.png');
-        this.load.image('eggCracked1', 'assets/egg_crack_1.png');
-        this.load.image('eggCracked2', 'assets/egg_crack_2.png');
-        this.load.image('eggCracked3', 'assets/egg_crack_3.png');
-        this.load.image('eggHatched', 'assets/egg_hatched.png');
-        this.load.image('crack', 'assets/egg_shell.png');
-        this.load.image('spider', 'assets/level_1_spider.png');
+        this.load.image('background', 'assets/level_1/level_1_background.png');
+        this.load.image('egg', 'assets/level_1/egg.png');
+        this.load.image('eggCracked1', 'assets/level_1/egg_crack_1.png');
+        this.load.image('eggCracked2', 'assets/level_1/egg_crack_2.png');
+        this.load.image('eggCracked3', 'assets/level_1/egg_crack_3.png');
+        this.load.image('eggHatched', 'assets/level_1/egg_hatched.png');
+        this.load.image('crack', 'assets/level_1/egg_shell.png');
+        this.load.image('spider', 'assets/level_1/level_1_spider.png');
 
         // load spritesheets
         // inchworm hatch
-        this.load.spritesheet('launch', 'assets/breaking_out.png', {frameWidth: 15, frameHeight: 400, frameStart: 0,
+        this.load.spritesheet('launch', 'assets/level_1/breaking_out.png', {frameWidth: 15, frameHeight: 400, frameStart: 0,
             frameEnd: 24});
 
         // button presses
-        this.load.spritesheet('buttonW', 'assets/button_W.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
+        this.load.spritesheet('buttonW', 'assets/level_1/button_W.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
             frameEnd: 1});
-        this.load.spritesheet('buttonA', 'assets/button_A.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
+        this.load.spritesheet('buttonA', 'assets/level_1/button_A.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
             frameEnd: 1});
-        this.load.spritesheet('buttonS', 'assets/button_S.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
+        this.load.spritesheet('buttonS', 'assets/level_1/button_S.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
             frameEnd: 1});
-        this.load.spritesheet('buttonD', 'assets/button_D.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
+        this.load.spritesheet('buttonD', 'assets/level_1/button_D.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
             frameEnd: 1});
     }
     create() {
