@@ -9,7 +9,7 @@ class Level1 extends Phaser.Scene {
         this.load.image('tulip1', 'assets/world/Tulip1.png');   // dimensions for all is 350x500
         this.load.image('tulip2', 'assets/world/Tulip2.png');
         this.load.image('rose', 'assets/world/Rose.png');
-        this.load.image('spider', 'assets/sprites/SpiderAnimSheet.png'); //309x470
+        this.load.image('spider', 'assets/sprites/level_1_spider.png'); //309x470
         //Tulips and Rose.
         //Inchworm ART
         this.load.spritesheet('move', 'assets/sprites/InchMovementFinal.png', {frameWidth: 125, frameHeight: 125}); //invalid frame width.
@@ -18,7 +18,7 @@ class Level1 extends Phaser.Scene {
     }
 
     create() {
-        // background image
+        // WORLD LAYOUT/SETUP
         this.background = this.add.image(0, -390,'background').setOrigin(0, 0);
 
         this.hud = this.add.group();
@@ -46,7 +46,15 @@ class Level1 extends Phaser.Scene {
         // this.tulip2 = this.add.image(-10, 10, 'tulip2');
         // this.rose  = this.add.image(-10, -10, 'rose');
 
-        // place controllable worm
+        // SPIDER
+        this.spider = new Spider(
+            this,
+            10,
+            10,
+            'spider'
+        );
+
+        // WORM DEFINED + CAMERA FOLLOW
         this.worm = this.physics.add.sprite(100, 615, 'move');
 
         this.worm.setBounce(0.2);
