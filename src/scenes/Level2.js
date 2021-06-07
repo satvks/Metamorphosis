@@ -1,6 +1,6 @@
 class Level2 extends Phaser.Scene {
     constructor() {
-        super("firstLevel");
+        super("secondLevel");
     }
 /* Game May Contain Multiple Levels. Name Subject to Change */
     preload() {
