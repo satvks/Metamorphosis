@@ -111,6 +111,10 @@ class Level1 extends Phaser.Scene {
             console.log('you lose');
             this.scene.start('menuScene');
         }
+        if(this.worm.x > 3550) {
+            //do a fade transition
+            //camera.fade(2500, 0, 0, 0, false, this.transitionCutscene)
+        }
         
         if(this.energy > 0){
             // if shift has once been released, it may be pressed for movement.
@@ -186,7 +190,7 @@ class Level1 extends Phaser.Scene {
         }
     }
 
-    // consumeLeaf() {
-
-    // }
+    transitionCutscene() {
+        console.log("cutsccene starts");
+    }
 }
