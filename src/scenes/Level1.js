@@ -1,6 +1,6 @@
 class level1 extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("firstLevel");
     }
     preload() {
         // load images
