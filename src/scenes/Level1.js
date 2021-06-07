@@ -58,6 +58,7 @@ class Level1 extends Phaser.Scene {
         this.worm = this.physics.add.sprite(100, 615, 'move');
 
         this.worm.setBounce(0.2);
+        this.worm.body.setSize(90, 90, 5, 5);
 
         // configure main camera (bg image is 3000x3000)
         this.cameras.main.setBounds(0, 0, 3540, 3540);
@@ -113,16 +114,32 @@ class Level1 extends Phaser.Scene {
     }
 
     update() {
+        this.physics.world.collide(
+            this.worm, 
+            this.spider, 
+            function() {
+                this.gameOver = true;
+            }, 
+            null, 
+            this);
+
         if(this.gameOver) {
             console.log('you lose');
-            this.scene.start('menuScene');
+            this.worm.alpha = 0;
+            this.time.addEvent({
+                delay: 3000,
+                loop: false,
+                callback: () => {
+                    this.scene.start("menuScene");
+                }
+            });
         }
         if(this.worm.x > 3550) {
             //do a fade transition
             //camera.fade(2500, 0, 0, 0, false, this.transitionCutscene)
         }
         
-        if(this.energy > 0){
+        if(this.energy > 0 || this.spider){
             // if shift has once been released, it may be pressed for movement.
             //console.log(this.shiftReleased);
             if(cursors.shift.isDown && this.shiftReleased) { // to move again, release must be true.
@@ -144,7 +161,7 @@ class Level1 extends Phaser.Scene {
                         this.shiftReleased = false;
                     });
 
-                    this.energy -= 2;
+                    this.energy -= 0.5;
                     this.energyAmount.text = Math.round(this.energy);
                 }
                 // moving right
@@ -160,15 +177,27 @@ class Level1 extends Phaser.Scene {
                         this.shiftReleased = false;
                     });
                     
-                    this.energy -= 2;
+                    this.energy -= 0.5;
                     this.energyAmount.text = Math.round(this.energy);
                 }
             } 
-            else if(cursors.shift.isUp) {       // on release
+            else if(cursors.shift.isUp && this.shiftReleased == false) {       // on release
                 this.energy -=.05;
                 this.energyAmount.text = Math.round(this.energy);
-                //this.worm.anims.play('turn');
+                (this.worm.flipX == false) ? this.worm.setVelocityX(180) : this.worm.setVelocityX(-180);
+
+                this.worm.anims.play('right2');
+                this.worm.on('animationcomplete', () => {
+                    this.worm.setVelocityX(0);
+                    //this.shiftReleased = true;
+                });
                 this.shiftReleased = true;
+            }
+            else {
+                this.energy -= .05;
+                this.energyAmount.text = Math.round(this.energy);
+                this.worm.setVelocityX(0);
+                this.worm.anims.stop();
             }
 
             this.leaves.getChildren().forEach(function(leaf) {
