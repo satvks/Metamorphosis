@@ -18,7 +18,7 @@ class Menu extends Phaser.Scene {
 
     update() {
         if(Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-            this.sound.play('menuButton');
+            this.sound.play('menuButton', { volume: 0.3});
             console.log("played sound");
             this.scene.transition({
                 target: 'instructionScene',
