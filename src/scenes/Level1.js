@@ -15,11 +15,14 @@ class Level1 extends Phaser.Scene {
         this.load.spritesheet('move', 'assets/sprites/InchMovementFinal.png', {frameWidth: 125, frameHeight: 125}); //invalid frame width.
 
         //SOUND
+        this.load.audio('music', 'assets/sounds/MetamorphosisGardenTheme.wav');
     }
 
     create() {
         // WORLD LAYOUT/SETUP
         this.background = this.add.image(0, -390,'background').setOrigin(0, 0);
+        this.music = this.sound.add('music', {volume: 0.25, loop: true});
+        this.music.play();
 
         this.hud = this.add.group();
         {
@@ -124,6 +127,7 @@ class Level1 extends Phaser.Scene {
             this);
 
         if(this.gameOver) {
+            this.music.stop(); // stop music
             console.log('you lose');
             this.worm.alpha = 0;
             this.time.addEvent({
@@ -135,6 +139,7 @@ class Level1 extends Phaser.Scene {
             });
         }
         if(this.worm.x > 3550) {
+            this.music.stop(); // stop music
             //do a fade transition
             //camera.fade(2500, 0, 0, 0, false, this.transitionCutscene)
         }
