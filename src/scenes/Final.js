@@ -10,15 +10,15 @@ class Final extends Phaser.Scene {
 
     create ()
     {
-        this.background = this.add.image(0, 0,'Bg').setOrigin(0, 0);
+        this.background = this.add.image(500, 500,'Bg').setOrigin(0, 0);
         keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
-        const Animation = this.anims.create({
+        this.animation = this.anims.create({
             key: 'fly',
             frames: this.anims.generateFrameNumbers('butterfly'),
             frameRate: 2
         });
 
-        const sprite = this.add.sprite(50, 300, 'butterfly').setScale(1);
+        this.sprite = this.add.sprite(50, 300, 'butterfly').setScale(1);
 
         sprite.play({ key: 'fly', repeat: -1 });
 

@@ -150,6 +150,7 @@ class Level1 extends Phaser.Scene {
 
             // check if spider has made it to the egg
             if(this.checkCollision()) {
+                // this.scene.relo
                 console.log("Game over!");
             }
 

@@ -140,6 +140,7 @@ class Level2 extends Phaser.Scene {
         }
         if(this.worm.x > 3550) {
             this.music.stop(); // stop music
+            this.scene.start("finalScene");
             //do a fade transition
             //camera.fade(2500, 0, 0, 0, false, this.transitionCutscene)
         }
