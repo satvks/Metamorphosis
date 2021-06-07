@@ -8,7 +8,8 @@ class Spider extends Phaser.GameObjects.Sprite {
     }
 
     create() {
-        // a timer which calls back at random times?
+
+        this.spawnSpider();
 
     }
 

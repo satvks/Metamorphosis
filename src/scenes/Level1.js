@@ -9,9 +9,11 @@ class Level1 extends Phaser.Scene {
         this.load.image('tulip1', 'assets/world/Tulip1.png');   // dimensions for all is 350x500
         this.load.image('tulip2', 'assets/world/Tulip2.png');
         this.load.image('rose', 'assets/world/Rose.png');
+        this.load.image('spider', 'assets/sprites/SpiderAnimSheet.png'); //309x470
         //Tulips and Rose.
         //Inchworm ART
         this.load.spritesheet('move', 'assets/sprites/InchMovementFinal.png', {frameWidth: 125, frameHeight: 125}); //invalid frame width.
+
         //SOUND
     }
 
@@ -39,20 +41,15 @@ class Level1 extends Phaser.Scene {
         //this.add.image(350, 540, 'leaf').setOrigin(0, 0);
         this.loadLevel();
 
-        // tulip and rose prefab
-        this.tulip1 = this.add.image(250, 410, 'tulip1');
-        this.tulip2 = this.add.image(-10, 10, 'tulip2');
-        this.rose  = this.add.image(-10, -10, 'rose');
+        // // tulip and rose prefab
+        // this.tulip1 = this.add.image(250, 410, 'tulip1');
+        // this.tulip2 = this.add.image(-10, 10, 'tulip2');
+        // this.rose  = this.add.image(-10, -10, 'rose');
 
         // place controllable worm
         this.worm = this.physics.add.sprite(100, 615, 'move');
 
         this.worm.setBounce(0.2);
-        //debuggin camera
-        // this.wormPos = this.add.text(20, 660, 'X:');
-        // this.wormPosTxt = this.add.text(100, 660, this.worm.x);
-        // this.wormPos.setScrollFactor(0);
-        // this.wormPosTxt.setScrollFactor(0);
 
         // configure main camera (bg image is 3000x3000)
         this.cameras.main.setBounds(0, 0, 3540, 3540);
@@ -66,7 +63,7 @@ class Level1 extends Phaser.Scene {
         this.cameras.main.setDeadzone(500, 500);
         //this.cameras.main.setName("mainCam");
 
-        // animations
+        // WORM ANIMATIONS
         // worm movement (right)
         // left worm mvmnt uses flipped right.
         this.anims.create({
@@ -83,7 +80,8 @@ class Level1 extends Phaser.Scene {
             repeat: 0
         });
 
-        // KEYBOARD INPUTS
+
+        // KEYBOARD INPUT HANDLING ft. events
         cursors = this.input.keyboard.createCursorKeys();
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.shiftReleased = true;
@@ -138,7 +136,7 @@ class Level1 extends Phaser.Scene {
                         this.shiftReleased = false;
                     });
 
-                    this.energy -= .1;
+                    this.energy -= 2;
                     this.energyAmount.text = Math.round(this.energy);
                 }
                 // moving right
@@ -154,12 +152,12 @@ class Level1 extends Phaser.Scene {
                         this.shiftReleased = false;
                     });
                     
-                    this.energy -= .1;
+                    this.energy -= 2;
                     this.energyAmount.text = Math.round(this.energy);
                 }
             } 
             else if(cursors.shift.isUp) {       // on release
-                this.energy -=.02;
+                this.energy -=.05;
                 this.energyAmount.text = Math.round(this.energy);
                 //this.worm.anims.play('turn');
                 this.shiftReleased = true;
