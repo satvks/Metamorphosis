@@ -6,6 +6,7 @@ class Final extends Phaser.Scene {
     {
         this.load.image('Bg', 'assets/world/FinalBg.png');
         this.load.spritesheet('butterfly', 'assets/sprites/ButterFlyMoveFinal.png', { frameWidth: 300, frameHeight: 200 });
+        this.load.audio('bgmusic', 'assets/sounds/NatureSound.wav');
     }
 
     create ()
@@ -17,6 +18,8 @@ class Final extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('butterfly'),
             frameRate: 8
         });
+        this.music = this.sound.add('bgmusic', {volume: 0.25, loop: true});
+        this.music.play();
 
         this.sprite = this.add.sprite(50, 300, 'butterfly').setScale(1);
 
@@ -40,6 +43,7 @@ class Final extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyM)) {
             this.sound.play('menuButton', { volume: 0.5});
             console.log("played sound");
+            this.music.stop();
             this.scene.start('menuScene');
         }
     }
