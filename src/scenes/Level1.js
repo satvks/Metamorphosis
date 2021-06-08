@@ -155,12 +155,14 @@ class Level1 extends Phaser.Scene {
 
         this.spider = new Spider(this, 480, 100, 'spider', 0, -0.5);
 
-        cursors = this.input.keyboard.createCursorKeys();
+        //cursors = this.input.keyboard.createCursorKeys();
     }
     update() {
-        if(Phaser.Input.Keyboard.JustDown(cursors.space)) { 
-            this.music.stop();
-            this.scene.start('cocoonCutscene')};
+        // if(Phaser.Input.Keyboard.JustDown(cursors.space)) { 
+        //     this.music.stop();
+        //     this.scene.start('cocoonCutscene');
+        // }
+            
 
         if(!this.eggHatched && !this.eggEaten){
             this.spider.update();
