@@ -66,6 +66,7 @@ class Level2 extends Phaser.Scene {
         // configure main camera (bg image is 3000x3000)
         this.cameras.main.setBounds(0, 0, 3540, 3540);
         this.cameras.main.setZoom(0.85);
+        this.called = true; // related to camera fade.
         
         this.worm.setCollideWorldBounds(false);
         // have camera follow worm
@@ -138,11 +139,11 @@ class Level2 extends Phaser.Scene {
                 }
             });
         }
-        if(this.worm.x > 3550) {
+        if(this.worm.x > 3550 && this.called) {
+            this.called = false;
             this.music.stop(); // stop music
-            this.scene.start("finalScene");
             //do a fade transition
-            this.camera.fade(2500, 0, 0, 0, false, this.transitionCutscene)
+            this.cameras.main.fade(2500, 0, 0, 0, false, this.transitionCutscene);
         }
         
         if(this.energy > 0){
@@ -233,5 +234,6 @@ class Level2 extends Phaser.Scene {
 
     transitionCutscene() {
         console.log("cutsccene starts");
+        this.scene.start("cocoonCutscene");
     }
 }
