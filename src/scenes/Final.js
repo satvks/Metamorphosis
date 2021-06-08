@@ -10,7 +10,7 @@ class Final extends Phaser.Scene {
 
     create ()
     {
-        this.background = this.add.image(0, 0,'Bg').setOrigin(0, 0);
+        this.background = this.add.image(0, 0, 1180, 720, 'Bg').setOrigin(0, 0);
         keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
         this.animation = this.anims.create({
             key: 'fly',
