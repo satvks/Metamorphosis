@@ -203,8 +203,8 @@ class Level1 extends Phaser.Scene {
             }
         } else {
             this.music.stop();
-            this.scene.start('menuScene');
-            this.scene.stop('firstLevel');
+            this.scene.start('gameOver');
+            //this.scene.stop('firstLevel');
         }
     }
 

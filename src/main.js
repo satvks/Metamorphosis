@@ -15,12 +15,12 @@ let config = {
                  }
              }
          },
-    scene: [ Menu, Instructions, Level1, Level2, Cocoon, Final]
+    scene: [ Menu, Instructions, Level1, Level2, Cocoon, Final, GameOver]
 }
 
 let game = new Phaser.Game(config);
 
 // keyboard variables
-let keyRIGHT, keyLEFT, keyE, keyA, keyS, keyW, keyD, keyM;
+let keyRIGHT, keyLEFT, keyE, keyA, keyS, keyW, keyD, keyM, keyR;
 
 let cursors;
