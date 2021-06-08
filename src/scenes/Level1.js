@@ -1,9 +1,3 @@
-let eggHatched; // Tate Keys
-let eggEaten;
-let hatchProgress = 0;
-let quickButtons = [];
-let animPlaying = false;
-
 class Level1 extends Phaser.Scene {    
     constructor() {
         super("firstLevel");
@@ -33,10 +27,22 @@ class Level1 extends Phaser.Scene {
             frameEnd: 1});
         this.load.spritesheet('buttonD', 'assets/level_1/button_D.png', {frameWidth: 200, frameHeight: 200, frameStart: 0,
             frameEnd: 1});
+
+        // music
+        this.load.audio('eggMusic', 'assets/sounds/EggMusic.wav');
     }
     create() {
+        //LOCAL VARIABLES
+        this.eggHatched = false; // Tate Keys
+        this.eggEaten = false;
+        this.hatchProgress = 0;
+        this.quickButtons = [];
+        this.animPlaying = false;
+
         // background images and sprites
         this.background = this.add.tileSprite(0, 0, 1180, 720, 'background').setOrigin(0, 0);
+        this.music = this.sound.add('eggMusic', { volume: 0.29, loop: true});
+        this.music.play();
         this.egg = this.add.tileSprite(480, 546, 15, 20, 'egg');
         this.cracked1 = this.add.tileSprite(480, 546, 15, 20, 'eggCracked1');
         this.cracked2 = this.add.tileSprite(480, 546, 15, 20, 'eggCracked2');
@@ -94,28 +100,28 @@ class Level1 extends Phaser.Scene {
         // create quick time event button sequence (randomizes each time)
         for(let i = 0; i < 10; i++) {
             let temp = Math.floor(Math.random() *  (3 - 0 + 1)) + 0;
-            quickButtons.push(temp);
+            this.quickButtons.push(temp);
             
             // replacing number with letter value
-            if(quickButtons[i] == 0) {
-                quickButtons[i] = "W";
-            } else if (quickButtons[i] == 1) {
-                quickButtons[i] = "A";
-            } else if (quickButtons[i] == 2) {
-                quickButtons[i] = "S";
+            if(this.quickButtons[i] == 0) {
+                this.quickButtons[i] = "W";
+            } else if (this.quickButtons[i] == 1) {
+                this.quickButtons[i] = "A";
+            } else if (this.quickButtons[i] == 2) {
+                this.quickButtons[i] = "S";
             } else {
-                quickButtons[i] = "D";
+                this.quickButtons[i] = "D";
             }
         }
-        console.log(quickButtons);
+        console.log(this.quickButtons);
 
         // create key combo for quick time event
-        this.combo = this.input.keyboard.createCombo(quickButtons, {
+        this.combo = this.input.keyboard.createCombo(this.quickButtons, {
             resetOnWrongKey: false,
             maxKeyDelay: 0
         }); 
         this.input.keyboard.on('keycombomatch', function(event) {
-            eggHatched = true;
+            this.eggHatched = true;
             console.log("Quick time event complete!");
         });
 
@@ -148,57 +154,63 @@ class Level1 extends Phaser.Scene {
         this.bigCrack.pause();
 
         this.spider = new Spider(this, 480, 100, 'spider', 0, -0.5);
+
         cursors = this.input.keyboard.createCursorKeys();
     }
     update() {
-        if(Phaser.Input.Keyboard.JustDown(cursors.space)) { this.scene.start('cocoonCutscene')};
+        if(Phaser.Input.Keyboard.JustDown(cursors.space)) { 
+            this.music.stop();
+            this.scene.start('cocoonCutscene')};
 
-        if(!eggHatched && !eggEaten){
+        if(!this.eggHatched && !this.eggEaten){
             this.spider.update();
 
             // check if spider has made it to the egg
             if(this.checkCollision()) {
-                this.scene.start('menuScene');
-                this.scene.stop('firstLevel');
                 console.log("Game over!");
             }
 
             // give player quick time event button prompt
-            this.buttonPrompt(this.combo, animPlaying);
-            animPlaying = true;
+            this.buttonPrompt(this.combo, this.animPlaying);
+            this.animPlaying = true;
 
             // check if they press the correct button
-            hatchProgress = this.combo.progress * 10 + 1;
+            this.hatchProgress = this.combo.progress * 10 + 1;
 
             // display egg hatching progress
-            if(hatchProgress == 3) {
+            if(this.hatchProgress == 3) {
                 this.egg.alpha = 0;
                 this.cracked1.alpha = 1;
             }
-            else if(hatchProgress == 5) {
+            else if(this.hatchProgress == 5) {
                 this.cracked1.alpha = 0;
                 this.cracked2.alpha = 1;
             }
-            else if(hatchProgress == 8) {
+            else if(this.hatchProgress == 8) {
                 this.cracked2.alpha = 0;
                 this.cracked3.alpha = 1;
             }
-            else if(hatchProgress == 10) {
+            else if(this.hatchProgress == 10) {
                 this.cracked3.alpha = 0;
                 this.hatched.alpha = 1;
                 this.smallCrack.pause();
-                eggHatched = true;
+                this.eggHatched = true;
                 let wormBirth = this.add.sprite(this.egg.x - 8, this.egg.y / 1.5, 'launch').setOrigin(0, 0);
                 wormBirth.anims.play('pow');
+                this.music.stop();
                 this.scene.start("secondLevel");
                 this.scene.stop('firstLevel');
             }
+        } else {
+            this.music.stop();
+            this.scene.start('menuScene');
+            this.scene.stop('firstLevel');
         }
     }
 
     checkCollision() {
         if(this.spider.y > 440){
-            eggEaten =  true;
+            this.eggEaten =  true;
         }    
         else {
             return false;
@@ -248,7 +260,7 @@ class Level1 extends Phaser.Scene {
     emitOnce(emit) {
         emit.explode(4);
         emit.resume();
-        hatchProgress++;
+        this.hatchProgress++;
         console.log("Crack!");
     }
 }
