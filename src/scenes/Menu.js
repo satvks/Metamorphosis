@@ -32,7 +32,7 @@ class Menu extends Phaser.Scene {
             'Tate Pieper', menuConfig).setOrigin(0.5);
 
         // define keys
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
     }
 
@@ -47,7 +47,7 @@ class Menu extends Phaser.Scene {
                 onUpdate: this.transitionOut,
             });
         }
-        if(Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+        if(Phaser.Input.Keyboard.JustDown(keyP)) {
             this.sound.play('menuButton', { volume: 0.5});
             console.log("played sound");
             this.scene.start('firstLevel');
