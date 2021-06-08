@@ -2,14 +2,14 @@ class Level2 extends Phaser.Scene {
     constructor() {
         super("secondLevel");
     }
-/* Game May Contain Multiple Levels. Name Subject to Change */
+
     preload() {
-        this.load.image('background', 'assets/world/Level2.png'); // big wan
+        this.load.image('background2', 'assets/world/Level2.png'); // big wan
         this.load.image('leaf', 'assets/world/Leaf.png');
         this.load.image('tulip1', 'assets/world/Tulip1.png');   // dimensions for all is 350x500
         this.load.image('tulip2', 'assets/world/Tulip2.png');
         this.load.image('rose', 'assets/world/Rose.png');
-        this.load.image('spider', 'assets/sprites/level_1_spider.png'); //309x470
+        this.load.image('spider2', 'assets/sprites/level_1_spider.png'); //309x470
         //Tulips and Rose.
         //Inchworm ART
         this.load.spritesheet('move', 'assets/sprites/InchMovementFinal.png', {frameWidth: 125, frameHeight: 125}); //invalid frame width.
@@ -20,7 +20,7 @@ class Level2 extends Phaser.Scene {
 
     create() {
         // WORLD LAYOUT/SETUP
-        this.background = this.add.image(0, -390,'background').setOrigin(0, 0);
+        this.background = this.add.image(0, -390,'background2').setOrigin(0, 0);
         this.music = this.sound.add('music', {volume: 0.25, loop: true});
         this.music.play();
 
@@ -54,7 +54,7 @@ class Level2 extends Phaser.Scene {
             this,
             10,
             10,
-            'spider'
+            'spider2'
         );
 
         // WORM DEFINED + CAMERA FOLLOW
@@ -142,10 +142,10 @@ class Level2 extends Phaser.Scene {
             this.music.stop(); // stop music
             this.scene.start("finalScene");
             //do a fade transition
-            //camera.fade(2500, 0, 0, 0, false, this.transitionCutscene)
+            this.camera.fade(2500, 0, 0, 0, false, this.transitionCutscene)
         }
         
-        if(this.energy > 0 || this.spider){
+        if(this.energy > 0){
             // if shift has once been released, it may be pressed for movement.
             //console.log(this.shiftReleased);
             if(cursors.shift.isDown && this.shiftReleased) { // to move again, release must be true.

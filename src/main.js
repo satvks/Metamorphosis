@@ -21,10 +21,6 @@ let config = {
 let game = new Phaser.Game(config);
 
 // keyboard variables
-let keyRIGHT, keyLEFT, keyE, keyA, keyS, keyW, keyD;
-let eggHatched; // Tate Keys
-let eggEaten;
-let hatchProgress = 0;
-let quickButtons = [];
-let animPlaying = false;
+let keyRIGHT, keyLEFT, keyE, keyA, keyS, keyW, keyD, keyM;
+
 let cursors;

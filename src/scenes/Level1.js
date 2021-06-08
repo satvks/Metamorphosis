@@ -1,4 +1,10 @@
-class Level1 extends Phaser.Scene {
+let eggHatched; // Tate Keys
+let eggEaten;
+let hatchProgress = 0;
+let quickButtons = [];
+let animPlaying = false;
+
+class Level1 extends Phaser.Scene {    
     constructor() {
         super("firstLevel");
     }
@@ -141,16 +147,19 @@ class Level1 extends Phaser.Scene {
         })
         this.bigCrack.pause();
 
-        this.spider = new Spider(this, 480, 100, 'spider', 0, -1);
+        this.spider = new Spider(this, 480, 100, 'spider', 0, -0.5);
+        //cursors = this.input.keyboard.createCursorKeys();
     }
     update() {
+        //if(Phaser.Input.Keyboard.JustDown(cursors.space)) { this.scene.start('finalScene')};
 
         if(!eggHatched && !eggEaten){
             this.spider.update();
 
             // check if spider has made it to the egg
             if(this.checkCollision()) {
-                // this.scene.relo
+                this.scene.start('menuScene');
+                this.scene.stop('firstLevel');
                 console.log("Game over!");
             }
 
@@ -182,6 +191,7 @@ class Level1 extends Phaser.Scene {
                 let wormBirth = this.add.sprite(this.egg.x - 8, this.egg.y / 1.5, 'launch').setOrigin(0, 0);
                 wormBirth.anims.play('pow');
                 this.scene.start("secondLevel");
+                this.scene.stop('firstLevel');
             }
         }
     }
