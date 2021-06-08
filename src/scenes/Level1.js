@@ -166,9 +166,7 @@ class Level1 extends Phaser.Scene {
             this.spider.update();
 
             // check if spider has made it to the egg
-            if(this.checkCollision()) {
-                console.log("Game over!");
-            }
+            this.checkCollision();
 
             // give player quick time event button prompt
             this.buttonPrompt(this.combo, this.animPlaying);
@@ -197,20 +195,20 @@ class Level1 extends Phaser.Scene {
                 this.eggHatched = true;
                 let wormBirth = this.add.sprite(this.egg.x - 8, this.egg.y / 1.5, 'launch').setOrigin(0, 0);
                 wormBirth.anims.play('pow');
-                this.music.stop();
-                this.scene.start("secondLevel");
-                this.scene.stop('firstLevel');
+                wormBirth.on('animationcomplete', () => {
+                    this.music.stop();
+                    this.scene.start('secondLevel');
+                    this.scene.stop('firstLevel');
+                })
             }
-        } else {
-            this.music.stop();
-            this.scene.start('gameOver');
-            //this.scene.stop('firstLevel');
-        }
+        } 
     }
 
     checkCollision() {
         if(this.spider.y > 440){
             this.eggEaten =  true;
+            this.music.stop();
+            this.scene.start('gameOver');
         }    
         else {
             return false;

@@ -135,7 +135,7 @@ class Level2 extends Phaser.Scene {
                 delay: 3000,
                 loop: false,
                 callback: () => {
-                    this.scene.start("menuScene");
+                    this.scene.start("gameOver");
                 }
             });
         }
